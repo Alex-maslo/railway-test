@@ -2,7 +2,7 @@ name: Build and Push Docker Image
 
 on:
   push:
-    branches: [ main ]  # або твоя основна гілка
+    branches: [main]
 
 jobs:
   build:
@@ -20,7 +20,13 @@ jobs:
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Build Docker image
-        run: docker build -t ghcr.io/${{ github.repository | toLowerCase }}:latest .
-    
+        run: |
+          IMAGE=ghcr.io/${{ github.repository }}
+          IMAGE_LOWER=$(echo $IMAGE | tr '[:upper:]' '[:lower:]')
+          docker build -t $IMAGE_LOWER:latest .
+
       - name: Push Docker image
-        run: docker push ghcr.io/${{ github.repository }}:latest
+        run: |
+          IMAGE=ghcr.io/${{ github.repository }}
+          IMAGE_LOWER=$(echo $IMAGE | tr '[:upper:]' '[:lower:]')
+          docker push $IMAGE_LOWER:latest
