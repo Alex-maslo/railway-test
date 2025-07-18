@@ -3,10 +3,14 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { NeonDatabaseModule } from './neon-database.module';
 import { ConfigModule } from '@nestjs/config';
-import { UsersModule } from './users/users.module';
+import { CarsModule } from './cars/cars.module';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), NeonDatabaseModule, UsersModule],
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    NeonDatabaseModule,
+    CarsModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
