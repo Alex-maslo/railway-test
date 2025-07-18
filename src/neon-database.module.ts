@@ -7,9 +7,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
+      useFactory: () => ({
         type: 'postgres',
-        url: configService.get<string>('DATABASE_URL'),
+        url: 'postgresql://neondb_owner:npg_Hd4Cj0efwuAi@ep-super-cake-a263p85b-pooler.eu-central-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require',
+        // url: configService.get<string>('DATABASE_URL'),
         autoLoadEntities: true,
         synchronize: true,
         ssl: {
